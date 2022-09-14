@@ -1,16 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { connect } from "react-redux";
+import { setTitle } from "./store";
 
-function App() {
-  const func = () =>{
-    console.log("Hello Melis");
-  }
+function App(props) {
+  const func = () => {
+    props.setTitle("Hello Melis");
+  };
   return (
     <div className="App">
-        <h1>Title</h1>
-        <button onClick={func}>Button</button>
-      </div>
+      <h1>{props.title}</h1>
+      <button onClick={func}>Button</button>
+    </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    title: state.title,
+  };
+};
+
+export default connect(mapStateToProps, { setTitle })(App);
